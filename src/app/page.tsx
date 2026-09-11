@@ -1,69 +1,140 @@
-import Image from "next/image";
+import Link from "next/link";
 
-export default function Home() {
+const featuredJobs = [
+  {
+    id: "1",
+    title: "Senior Frontend Engineer",
+    company: "Vercel",
+    location: "Remote",
+    salary: "$140k–$180k",
+    type: "Part-time",
+    tags: ["React", "TypeScript"],
+    logo: "V",
+  },
+  {
+    id: "2",
+    title: "Product Designer",
+    company: "Linear",
+    location: "San Francisco",
+    salary: "$120k–$150k",
+    type: "Full-time",
+    tags: ["Figma", "Design systems"],
+    logo: "L",
+  },
+  {
+    id: "3",
+    title: "Backend Engineer",
+    company: "Planetscale",
+    location: "Remote",
+    salary: "$130k–$160k",
+    type: "Full-time",
+    tags: ["Go", "MySQL"],
+    logo: "P",
+  },
+  {
+    id: "4",
+    title: "Staff Engineer",
+    company: "Stripe",
+    location: "New York",
+    salary: "$180k–$240k",
+    type: "Full-time",
+    tags: ["Distributed systems"],
+    logo: "S",
+  },
+];
+
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <>
+      <section className="hero">
+        <div className="container">
+          <p className="hero-label">
+            <span className="hero-dot" />
+            2,400 new jobs this week
           </p>
+          <h1 className="hero-title">
+            Find work that
+            <br />
+            fits your life.
+          </h1>
+          <p className="hero-sub">
+            Curated engineering, design, and product roles at companies that
+            care about craft.
+          </p>
+          <div className="hero-actions">
+            <Link href="/jobs" className="btn-primary">
+              Browse all jobs
+            </Link>
+            <Link href="/dashboard" className="btn-secondary">
+              Post a job
+            </Link>
+          </div>
+
+          <div className="hero-stats">
+            <div>
+              <div className="stat-value">12,400</div>
+              <div className="stat-label">Active listings</div>
+            </div>
+            <div>
+              <div className="stat-value">3,800</div>
+              <div className="stat-label">Companies hiring</div>
+            </div>
+            <div>
+              <div className="stat-value">94%</div>
+              <div className="stat-label">Remote-friendly</div>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      </section>
+
+      {/* Featured jobs */}
+      <section className="page-section" style={{ paddingTop: 0 }}>
+        <div className="container">
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "baseline",
+              marginBottom: 20,
+            }}
           >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            <div>
+              <h2 className="section-title">Featured roles</h2>
+              <p className="section-sub">
+                Hand-picked for quality and culture fit
+              </p>
+            </div>
+            <Link href="/jobs" className="nav-link" style={{ fontSize: 14 }}>
+              View all →
+            </Link>
+          </div>
+
+          <div className="jobs-grid">
+            {featuredJobs.map((job) => (
+              <Link key={job.id} href={`/jobs/${job.id}`} className="job-card">
+                <div className="job-card-header">
+                  <div className="company-logo">{job.logo}</div>
+                  <div style={{ flex: 1 }}>
+                    <div className="job-title">{job.title}</div>
+                    <div className="job-company">
+                      {job.company} · {job.location}
+                    </div>
+                  </div>
+                  <span className="badge badge-green">{job.type}</span>
+                </div>
+                <div className="job-meta">
+                  <span className="badge badge-gray">{job.salary}</span>
+                  {job.tags.map((tag) => (
+                    <span key={tag} className="badge badge-blue">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+    </>
   );
 }
