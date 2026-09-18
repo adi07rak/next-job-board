@@ -1,0 +1,48 @@
+// This is your Prisma schema file.
+// Run `npx prisma generate` after any changes here.
+// Run `npx prisma migrate dev --name <name>` to apply changes to the DB.
+//
+// Note: SQLite does not support enums, so Role, JobType, and JobStatus
+// are stored as plain Strings and validated in application code (src/lib/jobs.ts).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ── Models ─────────────────────────────────────────────────────────────────
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  image     String?
+  role      String   @default("JOBSEEKER") // "JOBSEEKER" | "EMPLOYER"
+  jobs      Job[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Job {
+  id           String   @id @default(cuid())
+  title        String
+  company      String
+  location     String
+  salary       String?
+  type         String   @default("FULL_TIME")  // "FULL_TIME" | "PART_TIME" | "CONTRACT" | "INTERNSHIP"
+  status       String   @default("ACTIVE")     // "DRAFT" | "ACTIVE" | "PAUSED" | "CLOSED"
+  description  String
+  requirements String                          // JSON string, parsed in app
+  niceToHave   String?                         // JSON string, parsed in app
+  tags         String                          // comma-separated string
+  logo         String?
+  views        Int      @default(0)
+  author       User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}

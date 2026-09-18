@@ -6,7 +6,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "JobBoard — Find your next role",
+  title: "Job Hunt — Find your next role",
   description: "Browse thousands of engineering, design, and product jobs.",
 };
 
@@ -21,8 +21,8 @@ export default function RootLayout({
         <header className="navbar">
           <div className="navbar-inner">
             <Link href="/" className="logo">
-              <span className="logo-mark">JP</span>
-              JobPost
+              <span className="logo-mark">JH</span>
+              Job Hunt
             </Link>
             <nav className="nav-links">
               <Link href="/jobs" className="nav-link">
@@ -42,7 +42,7 @@ export default function RootLayout({
 
         <footer className="footer">
           <div className="footer-inner">
-            <span className="footer-brand">JobPost</span>
+            <span className="footer-brand">Job Hunt</span>
             <span className="footer-copy">© 2026 · Built with Next.js</span>
           </div>
         </footer>
